@@ -1,24 +1,21 @@
+// Imports
 import dotenv from "dotenv";
 import Express from "express";
 import API from "./api.js";
-import rateLimit from 'express-rate-limit'
 
+// Init env area
 dotenv.config();
+// Init PORT from env
 const PORT = process.env.PORT;
 
+// Create server
 const app = Express();
 
-const apiLimiter = rateLimit({
-    windowMs: 60 * 1_000,
-	max: 10,
-	standardHeaders: true,
-	legacyHeaders: false,
-});
-
+// Init server service
 app.use(Express.json());
-app.use('/api', apiLimiter);
 app.use("/api", API);
 
+// Init home path '/' 
 app.get('/', (req, res) => {
     try {
         res.json("server working")
@@ -27,12 +24,12 @@ app.get('/', (req, res) => {
     }
 })
 
+// Start server
 async function startServer() {
-    try {
-        app.listen(PORT, () => console.log("start server"))
-    } catch (error) {
-        console.log(error);
-    }
+    app.listen(PORT)
 }
 
-startServer();
+// Promise 
+startServer()
+    .then(() => console.log("start server"))
+    .catch((err) => console.log(err))

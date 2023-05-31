@@ -1,25 +1,23 @@
-import DateService from "../services/DateService.js";
-import MathService from "../services/MathService.js";
-import ReqLimit from "../services/ReqLimitService.js";
+// Imports
 import ValutesServices from "../services/ValutesServices.js";
 
-const ReqLimitRussia = new ReqLimit(100);
-const ReqLimitTailand = new ReqLimit(200);
-
+// Class
 class ValutesController {
     async GetRussiaValutesAll(req, res) {
         try {
-            await DateService.CreateDelay(MathService.GetRandomInt(5))
-            const valutes = await ReqLimitRussia.Req(ValutesServices.GetRussiaValutesAll)
+            // Get valutes
+            const valutes = await ValutesServices.GetRussiaValutesAll()
+            // Res
             res.json(valutes)
         } catch (error) {
             res.status(500).json(error.message)
         }
     }
-    async GetTailandValutesAll(req, res) {
+    async GetThailandValutesAll(req, res) {
         try {
-            await DateService.CreateDelay(MathService.GetRandomInt(5))
-            const valutes = await ReqLimitTailand.Req(ValutesServices.GetTailandValutesAll)
+            // Get valutes
+            const valutes = await ValutesServices.GetThailandValutesAll()
+            // Res
             res.json(valutes)
         } catch (error) {
             res.status(500).json(error.message)
@@ -27,8 +25,9 @@ class ValutesController {
     }
     async GetValuteFromTo(req, res) {
         try {
-            await DateService.CreateDelay(MathService.GetRandomInt(5))
-            const num = await ValutesServices.GetValuteFromTo(req.body);
+            // Get num
+            const num = await ValutesServices.GetValuteFromTo(req.query);
+            // Res
             res.json(num);
         } catch (error) {
             res.status(500).json(error.message)
@@ -36,4 +35,5 @@ class ValutesController {
     }
 }
 
+// Export class
 export default new ValutesController();

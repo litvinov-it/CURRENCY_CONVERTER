@@ -1,10 +1,10 @@
+// Class
 class MathService {
-    GetRandomInt(max) {
-        return Math.floor(Math.random() * max)
-    }
     GetRoundFloat(num, count) {
+        // Calculate 
         return Math.round( num * 10**count ) / 10**count
     }
 }
 
+// Export class
 export default new MathService();
